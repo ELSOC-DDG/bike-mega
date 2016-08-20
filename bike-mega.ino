@@ -23,9 +23,9 @@ volatile bool modeBtnPressed = 0;
 
 void setup() {
 
-  #ifdef DEBUG_HIGH_LEVEL
+  //#ifdef DEBUG_HIGH_LEVEL
   Serial.begin(9600);
-  #endif // DEBUG_HIGH_LEVEL
+  //#endif // DEBUG_HIGH_LEVEL
   
   // initialise the LED ring
   LEDring_initialise();
@@ -55,21 +55,35 @@ float volt_buffer[10] = {0,0,0,0,0,0,0,0,0,0};
 void loop() { 
   float myvolts;
   float myamps;
-
+  float mypower;
   //LEDring_set(1024);
   //LEDring_set(0);
     
   //loadregulator loadreg(100, 11);
   loadregulator_Initialize();
+
+  while(1){
+    sevenSeg_blankAll();
+    LEDring_set(199);
+  }
   
   // Display loop
   while(1){
     // display the quantity
     myvolts = analogRead(1) * (5.0 * 8.0 / 1023.0);
     myamps = analogRead(0) * (5.0 * 3.0 / 1023.0);
-    sevenSeg_set((int)(floor(myvolts * myamps)));
-    //analogSample = analogRead(sensorPin);
-    LEDring_set(floor(myvolts * myamps)*10);
+    mypower = (int)floor(myamps*myvolts);
+    //Serial.println("Volts: %f   Amps: %f    Power: %f", myvolts, myamps, mypower);
+    
+    //Serial.print("Volts: ");
+    //Serial.println(myvolts);
+    //Serial.print("  Amps:");
+    //Serial.println(myamps);
+    //Serial.print("   Power:");
+    //Serial.println(mypower);
+    
+    sevenSeg_set(mypower);
+    LEDring_set(mypower);
     delay(100);
   }
 

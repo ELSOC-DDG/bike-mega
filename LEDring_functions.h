@@ -41,7 +41,7 @@
  ***********************************/
 #define numOfSegments     16
 #define minAnalogInput    0
-#define maxAnalogInput    1019
+#define maxAnalogInput    200
 
 /***********************************
  *       Function Prototypes       *

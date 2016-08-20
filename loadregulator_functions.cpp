@@ -3,16 +3,16 @@
 // Use globals for now
 PID *myPid;
 double pid_input, pid_output, set_point;
-double kp = 2, ki = 4, kd = 5;
+double kp = 15, ki = 3, kd = 5;
 
 void loadregulator_Initialize(void){
 
   // Initialize controller settings
   pid_input = 0;
   pid_output = 0;
-  set_point = 14;
-  kp = 10;
-  ki = 5;
+  set_point = 17;
+  kp = 15;
+  ki = 3;
   kd = 0;
   
   // Create the PID controller object
