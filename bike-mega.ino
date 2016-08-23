@@ -62,11 +62,11 @@ void loop() {
   //loadregulator loadreg(100, 11);
   loadregulator_Initialize();
 
-  while(1){
-    sevenSeg_blankAll();
-    LEDring_set(199);
-  }
-  
+  //while(1){
+  //  sevenSeg_blankAll();
+  //  LEDring_set(199);
+  //}
+  char buffer[1000];
   // Display loop
   while(1){
     // display the quantity
@@ -81,9 +81,25 @@ void loop() {
     //Serial.println(myamps);
     //Serial.print("   Power:");
     //Serial.println(mypower);
-    
-    sevenSeg_set(mypower);
-    LEDring_set(mypower);
+    //cat
+    //itoa(millis(),s1,10)
+    //itoa((int)floor(myvolts*100),s2,10)
+    //itoa((int)floor(myamps*100),s3,10)
+    //itoa((int)floor(1*100),s4,10);
+    char *s;
+    Serial.print(millis());
+    Serial.print(",");
+    Serial.print((int)floor(myvolts*100));
+    Serial.print(",");
+    Serial.print((int)floor(myamps*100));
+    Serial.print(",");
+    Serial.print((int)floor(1*100));
+    Serial.println("");
+      
+    sevenSeg_set((int)floor(mypower));
+    if(mypower > 300)
+      mypower = 300;
+    LEDring_set(map(mypower,0,300,0,200));
     delay(100);
   }
 
