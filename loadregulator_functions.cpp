@@ -10,7 +10,7 @@ void loadregulator_Initialize(void){
   // Initialize controller settings
   pid_input = 0;
   pid_output = 0;
-  set_point = 17;
+  set_point = 25;
   kp = 15;
   ki = 3;
   kd = 0;

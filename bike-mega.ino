@@ -99,7 +99,7 @@ void loop() {
     sevenSeg_set((int)floor(mypower));
     if(mypower > 300)
       mypower = 300;
-    LEDring_set(map(mypower,0,300,0,200));
+    LEDring_set(map(myvolts,0,50,0,200));
     delay(100);
   }
 

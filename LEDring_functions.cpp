@@ -129,7 +129,7 @@ void LEDring_set(int score) {
       case 14: data = 0x3FFF; break;
       case 15: data = 0x7FFF; break;
       case 16: data = 0xFFFF; break;
-      default: data = 0x0000; break;
+      default: data = 0xFFFF; break;
     }
 
     // write the pattern to the led ring
