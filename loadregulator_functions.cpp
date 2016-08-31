@@ -1,19 +1,24 @@
 #include "loadregulator_functions.h"
 #include "pin_definitions.h"
+
 // Use globals for now
 PID *myPid;
 double pid_input, pid_output, set_point;
-double kp = 15, ki = 3, kd = 5;
 
-void loadregulator_Initialize(void){
+void loadregulator_Shutdown(void){
+
+  noInterrupts();
+  TIMSK1 &= ~(1 << OCIE1A);  // disable timer compare inte
+  interrupts();             // enable all interrupts 
+  
+  delete myPid;
+}
+void loadregulator_Initialize(double setpoint,double kp, double ki, double kd){
 
   // Initialize controller settings
   pid_input = 0;
   pid_output = 0;
-  set_point = 25;
-  kp = 15;
-  ki = 3;
-  kd = 0;
+  set_point = setpoint;
   
   // Create the PID controller object
   myPid = new PID(&pid_input, &pid_output, &set_point, kp, ki,kd, DIRECT);
@@ -43,7 +48,7 @@ ISR(TIMER1_COMPA_vect)          // timer compare interrupt service routine
     noInterrupts();
 
     // Read in input
-    myvolts = analogRead(1) * (5.0 * 8.0 / 1023.0); // input in generator voltage
+    myvolts = analogRead(voltagePin) * (5.0 * 8.0 / 1023.0); // input in generator voltage
     pid_input = myvolts;    
 
     // Compute PID function

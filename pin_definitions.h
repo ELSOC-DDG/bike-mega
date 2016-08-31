@@ -72,7 +72,7 @@
 /***********************************
  *              PWM                *
  ***********************************/
-#define topLightPWM 5
+#define topLightPWM 4
 #define voltageMotor A7
 
 #endif
