@@ -22,9 +22,9 @@ while ( t <interv )
 %}
 
 snew=instrfind;
-fclose(snew);
+%fclose(snew);
 
-obj = serial('COM2')
+obj = serial('COM3')
 fopen(obj)
 
 buffer = zeros(1000,4);
