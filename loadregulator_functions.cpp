@@ -1,5 +1,5 @@
 #include "loadregulator_functions.h"
-
+#include "pin_definitions.h"
 // Use globals for now
 PID *myPid;
 double pid_input, pid_output, set_point;
@@ -52,7 +52,7 @@ ISR(TIMER1_COMPA_vect)          // timer compare interrupt service routine
     // Write output
     if(pid_output > 100)
       pid_output = 100;
-    analogWrite(2,255 - map(pid_output,0,100,0,255));    
+    analogWrite(topLightPWM,255 - map(pid_output,0,100,0,255));    
 
     // Enable interrupts
     interrupts();             // enable all interrupts  
