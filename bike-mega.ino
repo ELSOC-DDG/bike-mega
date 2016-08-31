@@ -41,9 +41,11 @@ void setup() {
   readyPrompt();
   #endif // WAIT_FOR_ENTER
 
-  // set the sensor pin as an analog input
-  pinMode(sensorPin, INPUT);
-  // set pwm pin 7 as output, motorout as analog input
+  // set the voltage and current pins as analog inputs
+  //pinMode(sensorPin, INPUT);
+  pinMode(voltagePin, INPUT);
+  pinMode(currentPin, INPUT);
+  // set pwm pin as output, motorout as analog input
   pinMode(topLightPWM, OUTPUT);
   pinMode(voltageMotor, INPUT);
 }
@@ -67,6 +69,8 @@ void loop() {
   //  LEDring_set(199);
   //}
   char buffer[1000];
+
+  /*
   // Display loop
   while(1){
     // display the quantity
@@ -102,7 +106,7 @@ void loop() {
     LEDring_set(map(myvolts,0,50,0,200));
     delay(100);
   }
-
+  */
   // turn on all ring segments
   //LEDring_set(1024);
   // turn off all ring segments
@@ -172,12 +176,20 @@ void loop() {
     
     // sample every 100ms for runtime seconds (and update the led ring)
     while(millis() - start_time <= runtime*1000) {
-      analogSample = analogRead(sensorPin);
-      LEDring_set(analogSample);
-      average += analogSample;
+      //analogSample = analogRead(sensorPin);
+      //LEDring_set(analogSample);
+      //average += analogSample;
 
+      myvolts = analogRead(1) * (5.0 * 8.0 / 1023.0);
+      myamps = analogRead(0) * (5.0 * 3.0 / 1023.0);
+      mypower = (int)floor(myamps*myvolts);
 
-  varyTopBrightness();
+      average += mypower;
+
+      LEDring_set(map(myvolts,0,50,0,200));
+      //delay(100);
+      
+  //varyTopBrightness();
 
       
       delay(100);
@@ -229,7 +241,7 @@ void loop() {
     
     // continuously read in the sensor value until the start button is pressed and display it on the ring
     while(!startBtnPressed) {
-      analogSample = analogRead(sensorPin);
+      analogSample = analogRead(voltagePin);
       LEDring_set(analogSample);
       delay(100);
     }
