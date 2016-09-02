@@ -8,5 +8,6 @@
 #include "loadregulator_functions.h"
 #include "mode_functions.h"
 #include "pin_definitions.h"
+#include "sensor_functions.h"
 
 #endif
