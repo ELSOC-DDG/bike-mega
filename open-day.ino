@@ -51,16 +51,16 @@ void readyPrompt(){
 }
 
 // trend() - Sends data to serial port for trending on PC
-void trend(float myvolts, float myamps, float output){
+void trend(float output){
      if(!Serial){
         Serial.begin(9600);
      }
      // output the system data to the serial port
      Serial.print(millis());
      Serial.print(",");
-     Serial.print((int)floor(myvolts*100));
+     Serial.print((int)floor(getVolts()*100));
      Serial.print(",");
-     Serial.print((int)floor(myamps*100));
+     Serial.print((int)floor(getCurrent()*100));
      Serial.print(",");
      Serial.print((int)floor(1*100));
      Serial.println("");
