@@ -17,8 +17,7 @@
 #define MODE_FUNCTIONS_H
 
 // include all necessary local header files
-#include "pin_definitions.h"
-#include "LEDring_functions.h"
+#include "bike.h"
 
 /***********************************
  *            Constants            *

@@ -19,8 +19,7 @@
 
 // include all necessary local header files
 #include "Arduino.h"
-#include "pin_definitions.h"
-#include "sevenSeg_functions.h"
+#include "bike.h"
 
 // sevenSeg_initialise()
 //     this function intialises the seven segment display by

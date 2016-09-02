@@ -21,7 +21,7 @@
 
 // include all necessary header files
 #include <Arduino.h>
-#include "LEDring_functions.h"
+#include "bike.h"
 
 // define the patterns in an array of shorts (hexadecimal notation)
 

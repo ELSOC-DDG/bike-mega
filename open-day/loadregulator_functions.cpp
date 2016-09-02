@@ -1,5 +1,4 @@
-#include "loadregulator_functions.h"
-#include "pin_definitions.h"
+#include "bike.h"
 
 // Use globals for now
 PID *myPid;

@@ -17,11 +17,7 @@
 
 // include all necessary header files
 #include "Arduino.h"
-#include "mode_functions.h"
-#include "LEDring_patterns.h"
-#include "LEDring_functions.h"
-#include "sevenSeg_functions.h"
-
+#include "bike.h"
 // startSequence()
 //     this function runs the start sequence animation to 
 //     countdown to when the rider should start pedalling

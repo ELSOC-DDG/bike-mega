@@ -32,8 +32,7 @@
 
 // include all necessary header files
 #include "Arduino.h"
-#include "pin_definitions.h"
-#include "LEDring_functions.h"
+#include "bike.h"
 
 void pulsePin(int pinNum){
   digitalWrite(pinNum, HIGH);
