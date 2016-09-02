@@ -91,7 +91,7 @@ void loop() {
 
     average += mypower;
 
-    LEDring_set(map(myvolts,0,50,0,200));
+    LEDring_set(map(myvolts,0,50,0,200)); // TODO: change this
     sevenSeg_set(runtime - ((millis() - start_time))/1000);
       
     delay(100);
