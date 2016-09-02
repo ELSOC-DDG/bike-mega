@@ -19,7 +19,6 @@ int rank = 999;
 long start_time = 0;
 int analogSample = 0;
 volatile bool startBtnPressed = 0;
-volatile bool modeBtnPressed = 0;
 
 void setup() {
     
@@ -48,7 +47,7 @@ void setup() {
 void loop() {
   // TODO: why is start interrupt rising? 
   // setup the start button pin as an interrupt
-  attachInterrupt(startBtnInt, startInterrupt, RISING);
+  attachInterrupt(startBtnInt, startInterrupt, CHANGE);
 
   // reset start button state variable
   startBtnPressed = 0;
@@ -147,15 +146,7 @@ void startInterrupt() {
   Serial.println("Start button pressed");
   Serial.println("");
   #endif // DEBUG_HIGH_LEVEL
-  //startBtnPressed = 1;
-
-  if(modeBtnPressed)
-    sevenSeg_set(21);
-  else
-    sevenSeg_set(20);
-    delay(2000);
-    sevenSeg_set(882);
-  
+  startBtnPressed = 1;
 }
 
 void readyPrompt(){
