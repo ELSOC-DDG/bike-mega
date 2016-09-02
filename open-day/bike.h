@@ -9,5 +9,7 @@
 #include "mode_functions.h"
 #include "pin_definitions.h"
 #include "sensor_functions.h"
+#include "LEDring_patterns.h"
+#include "PID_v1a.h"
 
 #endif
