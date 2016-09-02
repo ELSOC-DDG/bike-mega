@@ -37,6 +37,7 @@ void setup() {
   sensor_initialise();
   
   // TODO: initialise PWM output
+  pinMode(topLightPWM, OUTPUT);
 
   #ifdef WAIT_FOR_ENTER
   readyPrompt();
