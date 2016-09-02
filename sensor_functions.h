@@ -15,10 +15,13 @@
 /******************************
  *     Function Prototypes    *
  ******************************/
+// initialisation function
+void sensor_initialise();
 
-
-
-
+// get values
+float getVoltage();
+float getCurrent();
+float getPower();
 
 
 
