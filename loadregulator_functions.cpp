@@ -48,7 +48,7 @@ ISR(TIMER1_COMPA_vect)          // timer compare interrupt service routine
     noInterrupts();
 
     // Read in input
-    myvolts = analogRead(voltagePin) * (5.0 * 8.0 / 1023.0); // input in generator voltage
+    myvolts = getVolts(); // input in generator voltage
     pid_input = myvolts;    
 
     // Compute PID function
