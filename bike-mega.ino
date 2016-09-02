@@ -19,7 +19,7 @@ long start_time = 0;
 int analogSample = 0;
 volatile bool startBtnPressed = 0;
 volatile bool modeBtnPressed = 0;
-
+volatile long modeBtnTime = 0;
 
 void setup() {
 
@@ -65,23 +65,11 @@ void trend(float myvolts, float myamps, float output){
      Serial.println("");
 }
 
-
-void loop() { 
+void debug_loop(void){
   float myvolts;
   float myamps;
   float mypower;
-  //LEDring_set(1024);
-  //LEDring_set(0);
-    
-  //loadregulator loadreg(100, 11);
-  
-  //while(1){
-  //  sevenSeg_blankAll();
-  //  LEDring_set(199);
-  //}
-  char buffer[1000];
 
-  /*
   loadregulator_Initialize(20,20,0,0);
   // Display loop
   while(1){
@@ -101,13 +89,34 @@ void loop() {
     LEDring_set(map(myvolts,0,50,0,200));
     delay(100);
   }
-  */
+  
+}
+
+
+void loop() { 
+  float myvolts;
+  float myamps;
+  float mypower;
+  //LEDring_set(1024);
+  //LEDring_set(0);
+    
+  //loadregulator loadreg(100, 11);
+  
+  //while(1){
+  //  sevenSeg_blankAll();
+  //  LEDring_set(199);
+  //}
+  char buffer[1000];
+
+
+  // debug_loop();
+  // while(1){}
+  
   // turn on all ring segments
   //LEDring_set(1024);
   // turn off all ring segments
   //LEDring_set(1024);
 
-  
   // Display current loop values to 7seg  
   //while(1){
 
@@ -132,35 +141,34 @@ void loop() {
   //delay(200);
     
   //}
-  
-  // setup the start button pin as an interrupt
-  attachInterrupt(startBtnInt, startInterrupt, RISING);
-  
-  // setup the mode button pin as an interrupt
-  attachInterrupt(modeBtnInt, modeInterrupt, FALLING);
-  
+
   // reset the start button being pressed
   startBtnPressed = 0;
+  
+  // setup the start button pin as an interrupt
+  attachInterrupt(startBtnInt, startInterrupt, FALLING);
+  
+  // setup the mode button pin as an interrupt
+  // attachInterrupt(modeBtnInt, modeInterrupt, RISING);
   
   // enter idle mode until the start button is pressed
   idleMode();
 
   detachInterrupt(startBtnInt);
-  detachInterrupt(modeBtnInt);
+  // detachInterrupt(modeBtnInt);
   
   #ifdef WAIT_FOR_ENTER
   readyPrompt();
   #endif // WAIT_FOR_ENTER
-  
-  startSequence();
 
   #ifdef WAIT_FOR_ENTER
   readyPrompt();
   #endif // WAIT_FOR_ENTER
 
   // select modes
-  if(modeBtnPressed == 0) {
+  //if(startBtnPressed == 1) {
     // competition mode
+    startSequence();
     
     #ifdef DEBUG_HIGH_LEVEL
     Serial.println("Competition mode");
@@ -226,32 +234,10 @@ void loop() {
     readyPrompt();
     #endif // WAIT_FOR_ENTER
     
-  }
+  //}
   
-  // if the mode is charging mode
-  else {
-    #ifdef DEBUG_HIGH_LEVEL
-    Serial.println("Charging mode:");
-    #endif // DEBUG_HIGH_LEVEL
-    // turn the seven segment displays off
-    sevenSeg_blankAll();
-    
-    // continuously read in the sensor value until the start button is pressed and display it on the ring
-    startBtnPressed = 0;
-    while(!startBtnPressed) {
-
-myvolts = analogRead(1) * (5.0 * 8.0 / 1023.0);
-      myamps  = analogRead(0) * (5.0 * 3.0 / 1023.0);
-      mypower = (int)floor(myamps*myvolts);
-      trend(myvolts,myamps,1);
-
-      LEDring_set(map(myvolts,0,50,0,200));
-      sevenSeg_set(mypower);      
-      
-      delay(100);
-    }
-  }
 }
+
 
 int VoltsToInt(float volts){
   return floor((1024.0/5.0) * volts);
@@ -287,7 +273,7 @@ void varyTopBrightness() {
   brightness=255;
 
   
-
+  /*
   Serial.begin(9600);
   Serial.print("brightness = ");
   Serial.print(brightness);
@@ -296,7 +282,7 @@ void varyTopBrightness() {
   Serial.print("e = ");
   Serial.print(e);
   Serial.println(" ");
-
+  */
   
  
   //int brightness = map(floor(v), 0, 20, 0, 255);
@@ -315,31 +301,24 @@ void startInterrupt() {
   Serial.println("Start button pressed");
   Serial.println("");
   #endif // DEBUG_HIGH_LEVEL
-  //startBtnPressed = 1;
-
-
-  if(modeBtnPressed)
-    sevenSeg_set(21);
-  else
-    sevenSeg_set(20);
-  delay(2000);
-    sevenSeg_set(882);
+  startBtnPressed = 1;
   
 }
 
 void modeInterrupt() {
-  
-  // set the mode button flag
-  modeBtnPressed = !modeBtnPressed;
-  
-  if(modeBtnPressed)
-    sevenSeg_set(11);
-  else
-    sevenSeg_set(10);
-  delay(2000);
-    sevenSeg_set(881);
-  
-  
+  noInterrupts();
+  if((modeBtnTime+100) < millis()){
+    // set the mode button flag
+    modeBtnPressed = !modeBtnPressed;
+    modeBtnTime = millis();
+    if(modeBtnPressed)
+      sevenSeg_set(11);
+    else
+      sevenSeg_set(10);
+    //delay(2000000);
+    //sevenSeg_set(881);
+  }  
+  interrupts();
 }
 
 void readyPrompt(){

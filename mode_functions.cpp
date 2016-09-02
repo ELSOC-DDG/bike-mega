@@ -93,6 +93,9 @@ void startSequence() {
 //     this function runs a series of animations whilst
 //     there is nothing else happening
 void idleMode() {
+  float myvolts;
+  float myamps;
+  float mypower;
   
   #ifdef DEBUG_HIGH_LEVEL
   Serial.println("\nEntering idleMode()");
@@ -122,7 +125,14 @@ void idleMode() {
       i = 0;
       loops++;//; can I remove this extra semicolon?
     }
+    
+    myvolts = analogRead(1) * (5.0 * 8.0 / 1023.0);
+    myamps  = analogRead(0) * (5.0 * 3.0 / 1023.0);
+    mypower = (int)floor(myamps*myvolts);
+    // trend(myvolts,myamps,1);
 
+    sevenSeg_set(mypower);
+   
     // choose which pattern to display
     if(change == 1) {
       LEDring_singleSet(pattern_harry[i]);

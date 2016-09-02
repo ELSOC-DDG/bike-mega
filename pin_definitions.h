@@ -66,8 +66,8 @@
 /***********************************
  *              Button             *
  ***********************************/
-#define startBtnInt     1 // pin 3
-#define modeBtnInt      0 // pin 2
+#define startBtnInt     0 // pin 3
+#define modeBtnInt      1 // pin 2
 
 /***********************************
  *              PWM                *
