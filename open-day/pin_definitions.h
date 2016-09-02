@@ -20,7 +20,7 @@
 #ifndef PIN_DEFINTIONS_H
 #define PIN_DEFINITIONS_H
 
-#define DEBUG_HIGH_LEVEL
+//#define DEBUG_HIGH_LEVEL
 #ifdef DEBUG_HIGH_LEVEL
   //#define DEBUG_LOW_LEVEL
   #define WAIT_FOR_ENTER // comment out if you want the program to run through without stopping to wait for you to press enter
@@ -66,8 +66,8 @@
 /***********************************
  *              Button             *
  ***********************************/
-#define startBtnInt     1 // pin 3
-#define modeBtnInt      0 // pin 2
+#define startBtnInt     0 // pin 3
+#define modeBtnInt      1 // pin 2
 
 /***********************************
  *              PWM                *
