@@ -30,8 +30,8 @@ fopen(obj)
 buffer = zeros(1000,4);
 
 scores = cell([10 2]);
-scores(1:10, 1:1) = {0};
-scores(1:10, 2:2) = {''};
+scores(:) = {0};
+
 
 while(1)
     
@@ -65,7 +65,7 @@ while(1)
                 title('Bike Output');  
                 axis([ buffer(1)-10, buffer(1), 0 , 40]);
                 grid
-                
+                figure(plotfig);
 
                 drawnow;
             elseif (A(4)/100 == 2) 
@@ -73,24 +73,20 @@ while(1)
                 % competition mode is over, get score as calculated by
                 % arduino
                 score = A(1);
-                disp(score);
                 if (score > scores{10, 1})
                     user = input('Please enter your name: ', 's');
                     temp = cell([11 2]);
                     temp(1:10, 1:2) = scores(1:10, 1:2);
                     temp{11,1} = score;
                     temp{11,2} = user;
-                    temp
-                    temp = sortrows(temp, -1)
+                    sortrows(temp, -1);
                     scores(1:10, 1:2) = temp(1:10, 1:2);
-                    scores
                 end
                 
                 for k = 1:10
                     string = sprintf('%d. %s - %d', k, scores{k, 2},  scores{k, 1});
-                    %string = sprintf('%d. %s - %d', k, 'kkk',  22);
-                    figure(2);%score
-                    t = uicontrol(2,'Style','text','String',string,'Position',[100 (600-60*k) 500 60]);
+                    figure(1);%trend
+                    t = uicontrol(scorefig,'Style','text','String',string,'Position',[100 100 20*k 100]);
                     set(t,'FontSize',36,'Fontname','Helvetica','Fontweight','bold');
                 end
                 

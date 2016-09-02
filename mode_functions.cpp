@@ -144,7 +144,7 @@ void idleMode() {
       #endif // DEBUG_LOW_LEVEL
     }
     else {
-      LEDring_singleSet(pattern_pacMan[i]);
+      LEDring_singleSet(pattern_tom[i]);
       
       #ifdef DEBUG_LOW_LEVEL
       Serial.print("Displying pattern_two[");

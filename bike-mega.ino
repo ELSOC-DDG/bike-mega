@@ -146,7 +146,7 @@ void loop() {
   startBtnPressed = 0;
   
   // setup the start button pin as an interrupt
-  attachInterrupt(startBtnInt, startInterrupt, FALLING);
+  attachInterrupt(startBtnInt, startInterrupt, CHANGE);
   
   // setup the mode button pin as an interrupt
   // attachInterrupt(modeBtnInt, modeInterrupt, RISING);
@@ -222,7 +222,16 @@ void loop() {
     if(score > highScore) {
       highScore = score;
     }
-    
+   
+    Serial.print(score);
+    Serial.print(",");
+    Serial.print("0");
+    Serial.print(",");
+    Serial.print("0");
+    Serial.print(",");
+    Serial.print(200);
+    Serial.println("");
+
     displayFinalScore(score, rank);
 
     // reset average, score and rank
@@ -287,9 +296,6 @@ void varyTopBrightness() {
  
   //int brightness = map(floor(v), 0, 20, 0, 255);
   analogWrite(topLightPWM, brightness);
-
-  
-  
   
 }
 
@@ -302,6 +308,7 @@ void startInterrupt() {
   Serial.println("");
   #endif // DEBUG_HIGH_LEVEL
   startBtnPressed = 1;
+
   
 }
 

@@ -10,6 +10,8 @@ void loadregulator_Shutdown(void){
   noInterrupts();
   TIMSK1 &= ~(1 << OCIE1A);  // disable timer compare inte
   interrupts();             // enable all interrupts 
+
+  analogWrite(topLightPWM,0);    
   
   delete myPid;
 }
