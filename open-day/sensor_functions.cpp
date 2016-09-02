@@ -16,8 +16,8 @@ void sensor_initialise() {
     Serial.println('Entering sensor_initialise()'); 
     #endif //DEBUG_HIGH_LEVEL
 
-    pinMode(voltage_pin, INPUT);
-    pinMode(current_pin, INPUT);
+    pinMode(voltagePin, INPUT);
+    pinMode(currentPin, INPUT);
 
     #ifdef DEBUG_LOW_LEVEL
     Serial.println('Exiting sensor_initialise()');
@@ -25,21 +25,21 @@ void sensor_initialise() {
 }
 
 // getVoltage()
-//      reads voltage at voltage_pin and returns voltage from 
+//      reads voltage at voltagePin and returns voltage from 
 //      generator as float 
 float getVoltage() {
-   return analogRead(voltage_pin)*(R_V1 * (R_V1 + R_V2) / ANALOG_READ_MAX);
+   return analogRead(voltagePin)*(R_V1 * (R_V1 + R_V2) / ANALOG_READ_MAX);
 }
 
 // getCurrent()
-//      reads current at current_pin and returns current from 
+//      reads current at currentPin and returns current from 
 //      generator as float 
 float getCurrent() {
-    return analogRead(current_pin)*(R_I1 * (R_I1 + R_I2) / ANALOG_READ_MAX); 
+    return analogRead(currentPin)*(R_I1 * (R_I1 + R_I2) / ANALOG_READ_MAX); 
 }
 
 // getPower()
 //      returns power from generator as float
 float getPower() {
-    return getVolts()*getCurrent();
+    return getVoltage()*getCurrent();
 }

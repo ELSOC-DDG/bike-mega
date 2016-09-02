@@ -5,8 +5,8 @@
  *
  */
 
-#ifndef SENSOR_FUNCTIONS.H
-#define SENSOR_FUNCTIONS.H
+#ifndef SENSOR_FUNCTIONS_H
+#define SENSOR_FUNCTIONS_H
 
 /******************************
  *          Constants         *

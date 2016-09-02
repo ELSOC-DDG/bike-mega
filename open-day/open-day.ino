@@ -83,17 +83,17 @@ void loop() {
   loadregulator_Initialize(25,15,0,0);
 
   // competition mode
-  // sample every 100ms for runtime seconds (and update the led ring)
-  while(millis() - start_time <= runtime*1000) {
-    myvolts = getVolts();
-    myamps  = getCurrent();
-    mypower = (int)floor(getPower());
+  // sample every 100ms for RUNTIME seconds (and update the led ring)
+  while(millis() - start_time <= RUNTIME*1000) {
+    float myvolts = getVoltage();
+    float myamps  = getCurrent();
+    float mypower = (int)floor(getPower());
     trend(1);
 
     average += mypower;
 
     LEDring_set(map(myvolts,0,50,0,200)); // TODO: change this
-    sevenSeg_set(runtime - ((millis() - start_time))/1000);
+    sevenSeg_set(RUNTIME - ((millis() - start_time))/1000);
       
     delay(100);
   }
@@ -108,7 +108,7 @@ void loop() {
   LEDring_set(0);
 
   // store score
-  score = average/(runtime*10);
+  score = average/(RUNTIME*10);
     
   #ifdef DEBUG_LOW_LEVEL
   Serial.print("Score: ");
@@ -139,6 +139,25 @@ void loop() {
  *        Other Functions          *
  ***********************************/
 
+void startInterrupt() {
+  
+  // set the start button flag
+  #ifdef DEBUG_HIGH_LEVEL
+  Serial.println("");
+  Serial.println("Start button pressed");
+  Serial.println("");
+  #endif // DEBUG_HIGH_LEVEL
+  //startBtnPressed = 1;
+
+  if(modeBtnPressed)
+    sevenSeg_set(21);
+  else
+    sevenSeg_set(20);
+    delay(2000);
+    sevenSeg_set(882);
+  
+}
+
 void readyPrompt(){
   Serial.println("Press enter to continue...");
   while(!Serial.available()){
@@ -154,7 +173,7 @@ void trend(float output){
      // output the system data to the serial port
      Serial.print(millis());
      Serial.print(",");
-     Serial.print((int)floor(getVolts()*100));
+     Serial.print((int)floor(getVoltage()*100));
      Serial.print(",");
      Serial.print((int)floor(getCurrent()*100));
      Serial.print(",");

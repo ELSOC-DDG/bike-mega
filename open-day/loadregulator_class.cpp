@@ -1,5 +1,5 @@
 #include "loadregulator_class.h"
-#include "bike.h"
+//#include "bike.h"
 
 static loadregulator_data *loadregulator_list = NULL;
 
