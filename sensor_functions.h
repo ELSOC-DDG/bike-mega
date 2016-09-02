@@ -11,6 +11,12 @@
 /******************************
  *          Constants         *
  ******************************/
+#define R_V1 5
+#define R_V2 8
+#define R_I1 5
+#define R_I2 3
+
+#define ANALOG_READ_MAX 1023.0
 
 /******************************
  *     Function Prototypes    *
@@ -22,7 +28,5 @@ void sensor_initialise();
 float getVoltage();
 float getCurrent();
 float getPower();
-
-
 
 #endif

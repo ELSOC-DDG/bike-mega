@@ -28,14 +28,14 @@ void sensor_initialise() {
 //      reads voltage at voltage_pin and returns voltage from 
 //      generator as float 
 float getVoltage() {
-   return analogRead(voltage_pin)*(5.0 * 8.0 / 1023.0);
+   return analogRead(voltage_pin)*(R_V1 * (R_V1 + R_V2) / ANALOG_READ_MAX);
 }
 
 // getCurrent()
 //      reads current at current_pin and returns current from 
 //      generator as float 
 float getCurrent() {
-    return analogRead(current_pin)*(5.0 * 3.0 / 1023.0); 
+    return analogRead(current_pin)*(R_I1 * (R_I1 + R_I2) / ANALOG_READ_MAX); 
 }
 
 // getPower()
