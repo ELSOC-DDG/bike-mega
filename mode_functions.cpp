@@ -107,7 +107,7 @@ void idleMode() {
   bool change = 0;
   
   // display high score on the seven segment display
-  sevenSeg_set(highScore);
+  // sevenSeg_set(highScore);
   
   #ifdef DEBUG_LOW_LEVEL
   Serial.print("Displaying high score: ");
@@ -119,7 +119,7 @@ void idleMode() {
   Serial.println("Displaying patterns");
   #endif // DEBUG_LOW_LEVEL
   
-  while(!startBtnPressed) {  
+  while(!digitalRead(6)) {  
     // if the end of the pattern is reached, increment the loop counter and reset i
     if(i == numOfSegments) {
       i = 0;
@@ -142,8 +142,7 @@ void idleMode() {
       Serial.print(i);
       Serial.println("]");
       #endif // DEBUG_LOW_LEVEL
-    }
-    else {
+    } else {
       LEDring_singleSet(pattern_tom[i]);
       
       #ifdef DEBUG_LOW_LEVEL

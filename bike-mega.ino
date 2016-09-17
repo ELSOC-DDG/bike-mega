@@ -107,7 +107,10 @@ void loop() {
   //  LEDring_set(199);
   //}
   char buffer[1000];
-
+  pinMode(2, INPUT);
+  pinMode(3, INPUT);
+  pinMode(e46,INPUT_PULLUP);
+  //digitalWrite(50, HIGH);
 
   // debug_loop();
   // while(1){}
@@ -143,19 +146,22 @@ void loop() {
   //}
 
   // reset the start button being pressed
-  startBtnPressed = 0;
+  //startBtnPressed = 0;
   
   // setup the start button pin as an interrupt
-  attachInterrupt(startBtnInt, startInterrupt, CHANGE);
-  
+  //attachInterrupt(startBtnInt, startInterrupt, FALLING);
+  //attachInterrupt(modeBtnInt, startInterrupt, FALLING);
+
   // setup the mode button pin as an interrupt
   // attachInterrupt(modeBtnInt, modeInterrupt, RISING);
+
+  loadregulator_Initialize(25,15,0,0);
   
   // enter idle mode until the start button is pressed
   idleMode();
 
-  detachInterrupt(startBtnInt);
-  // detachInterrupt(modeBtnInt);
+  //detachInterrupt(startBtnInt);
+  //detachInterrupt(modeBtnInt);
   
   #ifdef WAIT_FOR_ENTER
   readyPrompt();
@@ -177,7 +183,7 @@ void loop() {
     // start timing the user
     start_time = millis();
 
-    loadregulator_Initialize(25,15,0,0);
+    
 
     // competition mode
     // sample every 100ms for runtime seconds (and update the led ring)
@@ -199,7 +205,7 @@ void loop() {
       delay(100);
     }
 
-    loadregulator_Shutdown();
+    //loadregulator_Shutdown();
 
     #ifdef WAIT_FOR_ENTER
     readyPrompt();
@@ -300,7 +306,7 @@ void varyTopBrightness() {
 }
 
 void startInterrupt() {
-  
+  noInterrupts();
   // set the start button flag
   #ifdef DEBUG_HIGH_LEVEL
   Serial.println("");
@@ -310,6 +316,7 @@ void startInterrupt() {
   startBtnPressed = 1;
 
   
+  interrupts();  
 }
 
 void modeInterrupt() {
@@ -326,6 +333,7 @@ void modeInterrupt() {
     //sevenSeg_set(881);
   }  
   interrupts();
+  
 }
 
 void readyPrompt(){

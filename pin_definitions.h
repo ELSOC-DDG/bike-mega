@@ -66,7 +66,7 @@
 /***********************************
  *              Button             *
  ***********************************/
-#define startBtnInt     0 // pin 3
+#define startBtnInt     4 // pin 3
 #define modeBtnInt      1 // pin 2
 
 /***********************************

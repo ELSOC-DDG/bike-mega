@@ -20,9 +20,8 @@ while ( t <interv )
       pause(0.01)
   end
 %}
-
-snew=instrfind;
-fclose(snew);
+%snew=instrfind;
+%fclose(snew);
 
 obj = serial('COM9')
 fopen(obj)
